@@ -32,14 +32,21 @@ lazy val root = project
 lazy val core = crossProject(JSPlatform, JVMPlatform)
   .in(file("core"))
   .settings(stdSettings("core"))
-  .settings(buildInfoSettings)
   .settings(
     libraryDependencies ++= Seq(
       "org.scala-sbt" % "test-interface" % "1.0",
       "org.scalaz"    %% "scalaz-zio"    % "0.16"
     )
   )
-  .enablePlugins(BuildInfoPlugin)
 
 lazy val coreJVM = core.jvm.settings(replSettings)
 lazy val coreJS  = core.js
+
+lazy val test = crossProject(JSPlatform, JVMPlatform)
+  .in(file("test"))
+  .settings(stdSettings("core"))
+  .settings(testFrameworks += new TestFramework("scalaz.zio.test.TestFramework"))
+  .dependsOn(core)
+
+lazy val testJVM = test.jvm
+lazy val testJS = test.js

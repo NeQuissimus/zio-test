@@ -3,9 +3,6 @@ import Keys._
 
 import sbtcrossproject.CrossPlugin.autoImport.CrossType
 
-import sbtbuildinfo._
-import BuildInfoKeys._
-
 object Scalaz {
   val testDeps        = Seq("org.scalacheck"  %% "scalacheck"   % "1.14.0" % "test")
   val compileOnlyDeps = Seq("com.github.ghik" %% "silencer-lib" % "1.3.1"  % "provided")
@@ -26,12 +23,6 @@ object Scalaz {
     "-Ywarn-numeric-widen",
     "-Ywarn-value-discard",
     "-Xfatal-warnings"
-  )
-
-  val buildInfoSettings = Seq(
-    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion, isSnapshot),
-    buildInfoPackage := "scalaz.zio",
-    buildInfoObject := "BuildInfo"
   )
 
   val replSettings = Seq(
